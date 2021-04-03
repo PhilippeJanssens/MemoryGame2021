@@ -1,71 +1,72 @@
-define([
+document.addEventListener('DOMContentLoaded', () => {
 
-  'jquery',
-  'underscore',
-  'backbone',
-  'marionette', 
-  'handlebars',
-  'text!templates/app_view.html',
+  //card options
+  const cardArray = [
+    {
+      name: 'MGpic1',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic1',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic2',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic2',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic3',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic3',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic4',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic4',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic5',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic5',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic6',
+      img: 'images/MGpic3.jpg'
+    },
+    {
+      name: 'MGpic6',
+      img: 'images/MGpic3.jpg'
+    }
+  ]
+})
+  const grid : document.querySelector('.grid')
 
-  'modules/mainMenuView/mainMenuView',
-  'modules/dashboard/dashboard',
-],
-function ($, _, Backbone, Marionette, Handlebars, tmpl, mainMenuView, dashboard ) {
+  //create your board
+  function creatBoard() {
+    for (let i=0; i < cardArray.length; i++) {
+      var card = document.createElement('img')
+      card.setAttribute('src', 'images/MGblank.jpg')
+      card.setAttribute('data-id', i)
+      //card.addEventListener('click', flipcard)
+      grid.appendChild(card)
+    }
+  }
+
+  //check for matches
 
 
-    Backbone.Marionette.TemplateCache.prototype.compileTemplate = function(rawTemplate) {
 
-        return Handlebars.compile(rawTemplate);
-    };
-
-    var App = new Backbone.Marionette.Application();
-
-    App.addRegions({
-
-         main: '#main'
-    });
-
-    App.addInitializer(function() {
-
-       this.initAppLayout();   
-    });
-
-    App.on("initialize:after", function(){
-
-      Backbone.history.start({ pushState: true });
-    });
-
-    App.initAppLayout = function() {
-
-        AppLayout = Backbone.Marionette.Layout.extend({
-
-         template: tmpl,
-
-         regions: {
-             userInfo: "#userInfo",
-             mainMenu: "#mainMenu",
-             content: "#content"
-         },
-
-        });
-
-        var layout = new AppLayout();
-        App.main.show(layout);
-
-        App.main.currentView.mainMenu.show(new mainMenuView.Views.menu());
-        App.main.currentView.content.show(new dashboard.Views.main());    
-
-       // this can be a main menu navigation
-       // this will change content at the "main" app screen
-       // your links should include the role=nav-main-app
-
-        $('a[role=nav-main-app]').click(function(e) {
-          App.Router.navigate( $(this).attr('href'), {trigger: true});
-          e.preventDefault(); 
-        });  
-
-    };
-
-    return App;
-
-});
+  createBoard()
